@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="955627b660484590bccdd204e8165d17" Name="Diagramm1" >
+        <EntityTypeShape EntityType="MP3Manager.Album" Width="1.5" PointX="4.8363944258710347" PointY="16.62255708157204" />
+        <EntityTypeShape EntityType="MP3Manager.Interpret" Width="1.5" PointX="7.7556074148768595" PointY="25.436675336880924" />
+        <EntityTypeShape EntityType="MP3Manager.Title" Width="1.5" PointX="9.9243700997551763" PointY="5.15139322222741" />
+        <AssociationConnector Association="MP3Manager.C_TITLE_ALBUM" />
+        <AssociationConnector Association="MP3Manager.C_Interpret_Title" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MP3Manager.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MP3ManagerStoreContainer">
+          <EntitySet Name="Album" EntityType="MP3Manager.Store.Album" store:Type="Tables" />
+          <EntitySet Name="Interpret" EntityType="MP3Manager.Store.Interpret" store:Type="Tables" />
+          <EntitySet Name="Title" EntityType="MP3Manager.Store.Title" store:Type="Tables" />
+          <AssociationSet Name="C_Interpret_Title" Association="MP3Manager.Store.C_Interpret_Title">
+            <End Role="Interpret" EntitySet="Interpret" />
+            <End Role="Title" EntitySet="Title" />
+          </AssociationSet>
+          <AssociationSet Name="C_TITLE_ALBUM" Association="MP3Manager.Store.C_TITLE_ALBUM">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Title" EntitySet="Title" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Searchname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Interpret">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Searchname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Interpret_ID" Type="int" Nullable="false" />
+          <Property Name="Album_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Length" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bitrate" Type="int" />
+          <Property Name="Bytes" Type="bigint" />
+          <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Filename" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Searchname" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Track" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="IsOrdered" Type="bit" Nullable="false" />
+          <Property Name="MP3TagStatus" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IsCollection" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="C_Interpret_Title">
+          <End Role="Interpret" Type="MP3Manager.Store.Interpret" Multiplicity="1" />
+          <End Role="Title" Type="MP3Manager.Store.Title" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interpret">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Title">
+              <PropertyRef Name="Interpret_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_TITLE_ALBUM">
+          <End Role="Album" Type="MP3Manager.Store.Album" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Title" Type="MP3Manager.Store.Title" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Title">
+              <PropertyRef Name="Album_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MP3Manager" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MP3ManagerContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Albums" EntityType="MP3Manager.Album" />
+          <EntitySet Name="Interprets" EntityType="MP3Manager.Interpret" />
+          <EntitySet Name="Titles" EntityType="MP3Manager.Title" />
+          <AssociationSet Name="C_TITLE_ALBUM" Association="MP3Manager.C_TITLE_ALBUM">
+            <End Role="Album" EntitySet="Albums" />
+            <End Role="Title" EntitySet="Titles" />
+          </AssociationSet>
+          <AssociationSet Name="C_Interpret_Title" Association="MP3Manager.C_Interpret_Title">
+            <End Role="Interpret" EntitySet="Interprets" />
+            <End Role="Title" EntitySet="Titles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Searchname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Titles" Relationship="MP3Manager.C_TITLE_ALBUM" FromRole="Album" ToRole="Title" />
+        </EntityType>
+        <EntityType Name="Interpret">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Searchname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Titles" Relationship="MP3Manager.C_Interpret_Title" FromRole="Interpret" ToRole="Title" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Interpret_ID" Nullable="false" />
+          <Property Type="Int32" Name="Album_ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Length" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Bitrate" />
+          <Property Type="Int64" Name="Bytes" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Filename" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Searchname" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Track" />
+          <Property Type="DateTime" Name="CreationDate" Precision="3" />
+          <Property Type="DateTime" Name="EditDate" Precision="3" />
+          <Property Type="Boolean" Name="IsOrdered" Nullable="false" />
+          <Property Type="Int32" Name="MP3TagStatus" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsCollection" Nullable="false" />
+          <NavigationProperty Name="Album" Relationship="MP3Manager.C_TITLE_ALBUM" FromRole="Title" ToRole="Album" />
+          <NavigationProperty Name="Interpret" Relationship="MP3Manager.C_Interpret_Title" FromRole="Title" ToRole="Interpret" />
+        </EntityType>
+        <Association Name="C_TITLE_ALBUM">
+          <End Type="MP3Manager.Album" Role="Album" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MP3Manager.Title" Role="Title" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Title">
+              <PropertyRef Name="Album_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_Interpret_Title">
+          <End Type="MP3Manager.Interpret" Role="Interpret" Multiplicity="1" />
+          <End Type="MP3Manager.Title" Role="Title" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interpret">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Title">
+              <PropertyRef Name="Interpret_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="MP3Manager" />
+        <Alias Key="Target" Value="MP3Manager.Store" />
+        <EntityContainerMapping CdmEntityContainer="MP3ManagerContainer" StorageEntityContainer="MP3ManagerStoreContainer">
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="MP3Manager.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Searchname" ColumnName="Searchname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interprets">
+            <EntityTypeMapping TypeName="MP3Manager.Interpret">
+              <MappingFragment StoreEntitySet="Interpret">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Searchname" ColumnName="Searchname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Titles">
+            <EntityTypeMapping TypeName="MP3Manager.Title">
+              <MappingFragment StoreEntitySet="Title">
+                <ScalarProperty Name="IsCollection" ColumnName="IsCollection" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MP3TagStatus" ColumnName="MP3TagStatus" />
+                <ScalarProperty Name="IsOrdered" ColumnName="IsOrdered" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Track" ColumnName="Track" />
+                <ScalarProperty Name="Searchname" ColumnName="Searchname" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="Bitrate" ColumnName="Bitrate" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Album_ID" ColumnName="Album_ID" />
+                <ScalarProperty Name="Interpret_ID" ColumnName="Interpret_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

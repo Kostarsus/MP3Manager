@@ -1,0 +1,81 @@
+[Info]
+Titel = MP3Manager
+Version = 1.0
+Date = 1324849140
+GUID = {9654A409-1AE8-40A7-B4CE-282761A146D2}
+Author = Thomas Feldkamp
+EMail = Kostarsus@yahoo.de
+Web = 
+Readme = 
+Licence = 
+[File]
+ProgDir = D:\Entwicklung\Entwicklung\MP3Manager\MP3Manager\bin\Release\
+DataDir = D:\Entwicklung\Entwicklung\MP3Manager\MP3Manager\db\
+ProgExe = MP3Manager.exe
+IconID = 0
+[Task]
+Desktop = 1
+StartProg = 1
+StartMenu = 1
+UserTask = 0
+SpecialTask = 1
+DataInstall = 1
+DataOption = XA
+IUpdater = 0
+ProgParameter = 
+Mutex = 0
+MutexString = 
+Reboot = 0
+Script = 0
+ScriptFile = 
+ScriptUI = 0
+ScriptUIFile = 
+NoUnistall = 0
+NoDelAll = 0
+[StartMenue]
+DefaultDir = 
+ProgLink = MP3Manager
+OptHelp = 0
+Help = 
+OptURL = 0
+URL = 
+OptExe = 0
+Exe = 
+OptIUpd = 0
+Unistall = 0
+[Settings]
+Language = deutsch.ins|
+Bitmap = C:\Program Files (x86)\EasySetup\Bitmaps\default.jpg
+HeaderIcon = 
+NoCopy = 1
+NoCopyExt = sdf|
+SetupExe = Setup
+DefaultDir = %ProgramFiles%MP3Manager
+DataDir = %AppData%MP3Manager
+SetupDir = D:\Entwicklung\Entwicklung\MP3Manager\Setup\
+Archiver = 1
+Split = 0
+ZipFile = 0
+[Upload]
+Setup = 0
+SetupFTP = 
+ZIP = 0
+ZipFTP = 
+IUpdater = 0
+IUpdFTP = 
+VIF = 0
+VifFILE = 
+VifFTP = 
+HTML = 0
+HtmlFiles = 0
+PAD = 0
+PadSRC = 
+PadFTP = 
+[IUpdater]
+Info = 
+URL = 
+NoPart = 0
+ReStart = 0
+UseProxy = 0
+ProxyServer = 
+ProxyPort = 0
