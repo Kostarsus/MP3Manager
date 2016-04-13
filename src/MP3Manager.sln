@@ -4,14 +4,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP3Manager", "MP3Manager\MP3Manager.csproj", "{069178F0-448B-441C-AD2D-7D6228E18D6F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90759281-08ED-4291-BF32-C457B1F9356B} = {90759281-08ED-4291-BF32-C457B1F9356B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP3ManagerBase", "MP3ManagerBase\MP3ManagerBase.csproj", "{660D24F7-E48B-47CB-90ED-2FEA8757954A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90759281-08ED-4291-BF32-C457B1F9356B} = {90759281-08ED-4291-BF32-C457B1F9356B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP3ManagerTest", "MP3ManagerTest\MP3ManagerTest.csproj", "{A0F9829B-28C6-4B80-88CE-94E6514D6A7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{90759281-08ED-4291-BF32-C457B1F9356B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup\Setup.vdproj", "{35FD7C23-BBE5-4316-A2D9-801E23048EC4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90759281-08ED-4291-BF32-C457B1F9356B} = {90759281-08ED-4291-BF32-C457B1F9356B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
