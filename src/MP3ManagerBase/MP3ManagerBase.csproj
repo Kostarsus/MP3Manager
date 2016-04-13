@@ -69,12 +69,12 @@
       <HintPath>..\packages\MusicBrainzAPI.1.0.0\lib\net45\Hqub.MusicBrainz.API.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=63b6d0c905ab78d9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MP3Manager\lib\log4net.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
-      <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -94,20 +94,22 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="taglib-sharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
-      <HintPath>..\packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
+    <Reference Include="taglib-sharp, Version=2.0.4.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>..\packages\taglib.1.0.0\lib\taglib-sharp.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Tools">
-      <HintPath>lib\Tools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="factory\ETagStatus.cs" />
     <Compile Include="helpers\WListPlayItem.cs" />
     <Compile Include="helpers\WSearchItem.cs" />
+    <Compile Include="helpers\WSongInformation.cs" />
     <Compile Include="helpers\WSynchronizeError.cs" />
     <Compile Include="manager\AlbumAdditionalReader.cs" />
+    <Compile Include="manager\Export\IExport.cs" />
+    <Compile Include="manager\Export\M3U.cs" />
+    <Compile Include="manager\Export\M3UExtended.cs" />
+    <Compile Include="manager\Export\Text.cs" />
     <Compile Include="manager\WArtistAlbum.cs" />
     <Compile Include="manager\WDuplicateEntry.cs" />
     <Compile Include="manager\EDuplicateCheckPriority.cs" />
@@ -175,6 +177,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{90759281-08ed-4291-bf32-c457b1f9356b}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

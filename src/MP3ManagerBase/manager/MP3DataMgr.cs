@@ -72,6 +72,7 @@ namespace MP3ManagerBase.manager
                 return count > 0;
             }
         }
+
         /// <summary>
         /// Diese Methode filtert die Elemente aus, die in die Datenbank nicht vorhanden sind
         /// </summary>
@@ -116,6 +117,7 @@ namespace MP3ManagerBase.manager
             }
             return returnValues;
         }
+        
         /// <summary>
         /// This method checks if a file is inserted in the database. The check isn't case-sensitive.
         /// </summary>
@@ -127,6 +129,7 @@ namespace MP3ManagerBase.manager
         {
             return ExistFileInDatabase(fileInfo.Path, fileInfo.Filename);
         }
+        
         /// <summary>
         /// This method checks, if an artist is stored in the database
         /// </summary>
@@ -155,6 +158,7 @@ namespace MP3ManagerBase.manager
                 return check.Count() > 0;
             }
         }
+        
         /// <summary>
         /// This method searches for the first occurance  of an artist
         /// </summary>
@@ -186,6 +190,7 @@ namespace MP3ManagerBase.manager
                 return retVal.First();
             }
         }
+        
         /// <summary>
         /// This method searches for the album of  an artist
         /// </summary>
@@ -420,7 +425,6 @@ namespace MP3ManagerBase.manager
             
             return errors;
         }
-
 
         /// <summary>
         /// This method searches in title.name, interpret.name and album.name for the searchstring
@@ -951,6 +955,38 @@ namespace MP3ManagerBase.manager
                 context.Entry(album).State = System.Data.Entity.EntityState.Modified;
 
                 context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Liefert alle Informationen zu fehlenden 
+        /// </summary>
+        /// <returns></returns>
+        public List<MusicBrainzInformation> GetMusicBrainzList()
+        {
+            using (var context = new MP3ManagerContext())
+            {
+                var result = context.MusicBrainzInformation
+                                    .Include("Album")
+                                    .Include("Artist")
+                                    .ToList();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Liefert eine Liste mit Titelsn zum angegebenen Album
+        /// </summary>
+        /// <param name="albumMBId"></param>
+        /// <returns></returns>
+        public List<MusicBrainzInformation> GetTitles(string albumMBId)
+        {
+            using (var context = new MP3ManagerContext())
+            {
+                var result = context.MusicBrainzInformation
+                                    .Where(e => e.AlbumMBId == albumMBId)
+                                    .ToList();
+                return result;
             }
         }
      }

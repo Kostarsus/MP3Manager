@@ -200,6 +200,38 @@
                 <Button Template="{StaticResource Go}" HorizontalAlignment="Left"  Name="createCollection" VerticalAlignment="Top" Click="CreateCollection_Click" Background="Green" Grid.Column="3" Grid.Row="1" />
                 </Grid>
             </TabItem>
+            <TabItem Header="Alben vergleichen" Name="DiffMusic" GotFocus="DiffMusic_GotFocus">
+                <Grid HorizontalAlignment="Left" Name="TabDiffMusic">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="520"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                        <ListView Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"  
+                                  x:Name="MusicBrainzRecords" 
+                                  AlternationCount="2" Background="Aqua" 
+                                  SelectionChanged="MusicBrainzRecords_SelectionChanged" SelectionMode="Multiple">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Tag="{Binding ID}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Interpret}" Header="Interpret" Width="200" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Album}" Header="Album" Width="300"/>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Button Name="Update" HorizontalAlignment="Right" Click="Update_Click">Aktualisieren</Button>
+                        <Button Name="DiffExport" Click="DiffExport_Click">Export</Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
         </TabControl>
     </StackPanel>
 </Window>

@@ -11,7 +11,7 @@ namespace MP3ManagerBase.model
 {
     [Serializable]
     [Table("MusicBrainz")]
-    internal class MusicBrainzInformation
+    public class MusicBrainzInformation
     {
         #region Properties
         [DataMember]

@@ -16,6 +16,9 @@ using MP3ManagerBase.manager;
 using MP3ManagerBase.helpers;
 using log4net.Config;
 using System.Windows.Threading;
+using MP3ManagerBase.Views;
+using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace MP3ManagerBase
 {
@@ -97,18 +100,76 @@ namespace MP3ManagerBase
 
         }
 
+        private void DiffMusic_GotFocus(object sender, RoutedEventArgs e)
+        {
+        }
 
+        private void LoadMusicDifferenceView()
+        {
+            var musicDfferences = dataMgr.GetMusicBrainzList();
+            var listToDisplay = musicDfferences.GroupBy(e => e.AlbumMBId)
+                                               .Select(g => new MissingAlben()
+                                                {
+                                                    Album = (g.FirstOrDefault() == null || g.First().Album == null) ? "nicht geladen" : g.First().Album.Name,
+                                                    AlbumMBId = g.Key,
+                                                    Interpret = (g.FirstOrDefault() == null || g.First().Artist == null) ? "nicht geladen" : g.First().Artist.Name,
+                                                    InterpretMBId = (g.FirstOrDefault() == null) ? null : g.First().ArtistMBId,
+                                                    Title = (g.FirstOrDefault() == null) ? null : g.First().Title,
+                                                    TitleMBId = (g.FirstOrDefault() == null ) ? null : g.First().TitleMBId 
+                                                })
+                                               .ToList();
+            this.MusicBrainzRecords.ItemsSource = listToDisplay;
+        }
 
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            LoadMusicDifferenceView();
 
+        }
 
+        private void DiffExport_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedListboxItems = MusicBrainzRecords.SelectedItems;
+            if (selectedListboxItems == null)
+            {
+                return;
+            }
 
+            Microsoft.Win32.SaveFileDialog saveFileDiag = new Microsoft.Win32.SaveFileDialog();
+            saveFileDiag.AddExtension = true;
+            saveFileDiag.Filter = "M3U-Dateien|*.m3u|Extended-M3U-Dateien|*.m3e|Textdateien|*.txt";
+            saveFileDiag.DefaultExt = "*.m3u";
+            saveFileDiag.CheckPathExists = true;
+            var result = saveFileDiag.ShowDialog();
 
+            List<WSongInformation> songsForExport = new List<WSongInformation>();
+            foreach (MissingAlben item in selectedListboxItems)
+            {
+                var titles = dataMgr.GetTitles(item.AlbumMBId);
+                foreach (var title in titles)
+                {
+                    WSongInformation newInformation = new WSongInformation()
+                    {
+                        Interpret = item.Interpret,
+                        Album = item.Album,
+                        Title = title.Title
+                    };
+                    songsForExport.Add(newInformation);
+                }
+            }
 
-
- 
- 
- 
-
-
+            switch (saveFileDiag.FilterIndex)
+            {
+                case 1:
+                    FileMgr.Instance.M3UExport(saveFileDiag.FileName, songsForExport);
+                    break;
+                case 2:
+                    FileMgr.Instance.M3UExtendedExport(saveFileDiag.FileName, songsForExport);
+                    break;
+                default:
+                    FileMgr.Instance.TextExport(saveFileDiag.FileName, songsForExport);
+                    break;
+            }
+        }
     }
 }

@@ -98,6 +98,8 @@ namespace MP3ManagerBase
             }
         }
 
-
+        private void MusicBrainzRecords_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
     }
 }

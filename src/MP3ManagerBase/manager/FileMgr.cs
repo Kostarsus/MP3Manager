@@ -6,6 +6,10 @@ using System.IO;
 using MP3ManagerBase.factory;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using MP3ManagerBase.helpers;
+using System.Windows.Forms;
+using MP3ManagerBase.manager.Export;
+
 namespace MP3ManagerBase.manager
 {
     /// <summary>
@@ -293,20 +297,61 @@ namespace MP3ManagerBase.manager
         }
 
         /// <summary>
-        /// Generiert einen Eintrag für den Text-Export
+        /// Erstellt eine Datei mit den übergebenen Liedern als Textexport
         /// </summary>
-        /// <param name="artistName">
-        /// Nam des Interpreten
-        /// </param>
-        /// <param name="titleName">
-        /// Name des Titels
-        /// </param>
-        /// <returns>
-        /// Umgewandelte Zeichenkette im Text-Format
-        /// </returns>
-        public static string ExportTextFormat(string artistName, string titleName)
+        /// <param name="fileName"></param>
+        /// <param name="songs"></param>
+        public void TextExport(string fileName, List<WSongInformation> songs)
         {
-            return string.Format("{0} - {1}", artistName, titleName);
-        }        
+            if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+            {
+                MessageBox.Show(string.Format("Da Verzeichnis {0} existiert nicht.", Path.GetDirectoryName(fileName)));
+                return;
+            }
+
+            Text export = new Text();
+            var exportResult = export.Export(songs);
+            string text = exportResult != null ? export.TextEncoding.GetString(exportResult) : string.Empty;
+            File.WriteAllText(fileName, text);
+        }
+
+        /// <summary>
+        /// Erstellt eine Datei mit den übergebenen Liedern als MP3U-Export
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="songs"></param>
+        public void M3UExport(string fileName, List<WSongInformation> songs)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+            {
+                MessageBox.Show(string.Format("Da Verzeichnis {0} existiert nicht.", Path.GetDirectoryName(fileName)));
+                return;
+            }
+
+            M3U export = new M3U();
+            var exportResult = export.Export(songs);
+            string text = exportResult != null ? export.TextEncoding.GetString(exportResult) : string.Empty; 
+            File.WriteAllText(fileName, text);
+        }
+
+        /// <summary>
+        /// Erstellt eine Datei mit den übergebenen Liedern als M3UExtended-Export
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="songs"></param>
+        public void M3UExtendedExport(string fileName, List<WSongInformation> songs)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+            {
+                MessageBox.Show(string.Format("Da Verzeichnis {0} existiert nicht.", Path.GetDirectoryName(fileName)));
+                return;
+            }
+
+            M3UExtended export = new M3UExtended();
+            var exportResult = export.Export(songs);
+            string text = exportResult != null ? export.TextEncoding.GetString(exportResult) : string.Empty;
+            File.WriteAllText(fileName, text);
+        }
+
     }
 }
